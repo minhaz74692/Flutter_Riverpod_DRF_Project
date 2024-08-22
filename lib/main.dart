@@ -1,5 +1,6 @@
 import 'package:drf_flutter_app/constants.dart';
 import 'package:drf_flutter_app/repository/dio/dio_client.dart';
+import 'package:drf_flutter_app/repository/repos/auth_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
@@ -27,7 +28,9 @@ class PostRequestDemo extends StatefulWidget {
 class _PostRequestDemoState extends State<PostRequestDemo> {
   String responseMessage = 'Response will be shown here';
 
-  void makePostRequest() async {}
+  void makePostRequest() async {
+    await AuthRepo.loginRepo();
+  }
 
   @override
   Widget build(BuildContext context) {

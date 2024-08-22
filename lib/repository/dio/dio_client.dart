@@ -1,21 +1,18 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:drf_flutter_app/constants.dart';
 import 'package:drf_flutter_app/repository/dio/logging_interceptor.dart';
 
 class DioClient {
-  final String? baseUrl;
-
   final Dio dio = Dio();
 
-  DioClient(
-    this.baseUrl,
-  ) {
+  DioClient() {
     Map<String, String> headerMap = {
       'Content-Type': 'application/json; charset=UTF-8',
     };
 
     dio
-      ..options.baseUrl = baseUrl!
+      ..options.baseUrl = AppConstant.baseUrl
       // ..options.connectTimeout = 30000
       // ..options.receiveTimeout = 30000
       ..httpClientAdapter
