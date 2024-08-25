@@ -1,14 +1,17 @@
 import 'package:dio/dio.dart';
-import 'package:drf_flutter_app/constants.dart';
 import 'package:drf_flutter_app/repository/dio/dio_client.dart';
 import 'package:drf_flutter_app/repository/exception/api_error_handler.dart';
 import 'package:drf_flutter_app/repository/response/api_response.dart';
 import 'package:flutter/material.dart';
 
 class AuthRepo {
+  final DioClient dioClient;
+
+  AuthRepo({required this.dioClient});
+
+
   //Get Items from Inventory
-  static Future<ApiResponse> loginRepo() async {
-    DioClient dioClient = DioClient();
+   Future<ApiResponse> loginRepo() async {
     Response response = Response(requestOptions: RequestOptions(path: '22222'));
 
     try {

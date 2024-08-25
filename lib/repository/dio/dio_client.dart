@@ -1,23 +1,27 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:drf_flutter_app/constants.dart';
 import 'package:drf_flutter_app/repository/dio/logging_interceptor.dart';
 
 class DioClient {
-  final Dio dio = Dio();
+  final String? baseUrl;
 
-  DioClient() {
+  final LoggingInterceptor? loggingInterceptor;
+
+  Dio? dio;
+
+  DioClient(this.baseUrl, Dio? dioC, {this.loggingInterceptor}) {
+    dio = dioC ?? Dio();
     Map<String, String> headerMap = {
       'Content-Type': 'application/json; charset=UTF-8',
     };
 
-    dio
-      ..options.baseUrl = AppConstant.baseUrl
+    dio!
+      ..options.baseUrl = baseUrl!
       // ..options.connectTimeout = 30000
       // ..options.receiveTimeout = 30000
       ..httpClientAdapter
       ..options.headers = headerMap;
-    dio.interceptors.add(LoggingInterceptor());
+    dio!.interceptors.add(loggingInterceptor!);
   }
 
   Future<Response> get(
@@ -28,7 +32,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      var response = await dio.get(
+      var response = await dio!.get(
         uri,
         queryParameters: queryParameters,
         options: options,
@@ -55,7 +59,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      var response = await dio.post(
+      var response = await dio!.post(
         uri,
         data: data,
         queryParameters: queryParameters,
@@ -82,7 +86,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      var response = await dio.patch(
+      var response = await dio!.patch(
         uri,
         data: data,
         queryParameters: queryParameters,
@@ -109,7 +113,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      var response = await dio.put(
+      var response = await dio!.put(
         uri,
         data: data,
         queryParameters: queryParameters,
@@ -134,7 +138,7 @@ class DioClient {
     CancelToken? cancelToken,
   }) async {
     try {
-      var response = await dio.delete(
+      var response = await dio!.delete(
         uri,
         data: data,
         queryParameters: queryParameters,
