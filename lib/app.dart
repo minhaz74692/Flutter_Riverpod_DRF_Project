@@ -1,54 +1,16 @@
-import 'package:drf_flutter_app/blocs/auth_bloc.dart';
+import 'package:drf_flutter_app/screens/home.dart';
 import 'package:flutter/material.dart';
-import 'di_container.dart' as di;
-
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => di.sl<AuthBloc>()),
-      ],
+    return const ProviderScope(
       child: MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(title: Text('Dio POST Request Example')),
-          body: PostRequestDemo(),
-        ),
-      ),
-    );
-  }
-}
-
-class PostRequestDemo extends StatefulWidget {
-  @override
-  _PostRequestDemoState createState() => _PostRequestDemoState();
-}
-
-class _PostRequestDemoState extends State<PostRequestDemo> {
-  String responseMessage = 'Response will be shown here';
-
-  void makePostRequest() async {
-    var ab = context.read<AuthBloc>();
-    await ab.logIn();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(responseMessage),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: makePostRequest,
-            child: Text('Make POST Request'),
-          ),
-        ],
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen(),
       ),
     );
   }
