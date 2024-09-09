@@ -1,16 +1,30 @@
-# drf_flutter_app
+# Flutter, RiverPod state management, Django Resr Framework Project.
 
-A new Flutter project.
+# Flutter Riverpod State Management Examples
 
-## Getting Started
+This repository demonstrates various ways to manage state in a Flutter application using **Riverpod**.
 
-This project is a starting point for a Flutter application.
+## State Management Techniques
 
-A few resources to get you started if this is your first Flutter project:
+### 1. Provider
+A `Provider` is used for providing read-only values or objects.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```dart
+final stringProvider = Provider<String>((ref) => 'Hello');
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+final counterProvider = StateProvider<int>((ref) => 0);
+
+final futureProvider = FutureProvider<int>((ref) async {
+  return await fetchSomeData();
+});
+
+final streamProvider = StreamProvider<int>((ref) => myStream());
+
+final counterNotifierProvider = ChangeNotifierProvider<CounterNotifier>((ref) => CounterNotifier());
+
+final counterNotifier = StateNotifierProvider<CounterNotifier, int>((ref) => CounterNotifier());
+
+final userProvider = Provider.family<User, int>((ref, userId) => fetchUser(userId));
+
+final autoDisposeProvider = StateProvider.autoDispose<int>((ref) => 0);
+
