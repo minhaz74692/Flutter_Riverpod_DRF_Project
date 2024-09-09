@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:drf_flutter_app/repository/dio/logging_interceptor.dart';
+import 'package:drf_flutter_app/services/sp_service.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DioClient {
   final String? baseUrl;
@@ -8,12 +11,20 @@ class DioClient {
   final LoggingInterceptor? loggingInterceptor;
 
   Dio? dio;
+  SharedPreferences? sp;
+  String? token;
 
-  DioClient(this.baseUrl, Dio? dioC, {this.loggingInterceptor}) {
+  DioClient(this.baseUrl, Dio? dioC,
+      {this.loggingInterceptor, this.sp, this.token}) {
     dio = dioC ?? Dio();
+    token = sp!.getString(SpServices.userToken);
+    debugPrint('Token: $token');
     Map<String, String> headerMap = {
       'Content-Type': 'application/json; charset=UTF-8',
     };
+    if (token != null) {
+      headerMap.addAll({'Authorization': 'Bearer $token'});
+    }
 
     dio!
       ..options.baseUrl = baseUrl!

@@ -1,5 +1,6 @@
 import 'package:drf_flutter_app/blocs/auth_bloc.dart';
 import 'package:drf_flutter_app/screens/new_screen.dart';
+import 'package:drf_flutter_app/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,21 +8,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final counterProvider = StateProvider<int>((ref) => 4);
 final nameProvider = StateProvider<String>((ref) => "");
 
-class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({super.key});
+class WelcomeScreen extends ConsumerStatefulWidget {
+  const WelcomeScreen({super.key});
 
   @override
-  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
   String responseMessage = 'Response will be shown here';
 
   // ProviderContainer refContainer = ProviderContainer();
   void makePostRequest() async {
     // var ab = refContainer.read(authPod);
     var ab = ref.read(authPod);
-    await ab.logIn();
+    await ab.logIn().then((status) {
+      status ? Helper.nextScreenCloseOthers(context, TestScreen()) : null;
+    });
   }
 
   @override
@@ -38,9 +41,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: makePostRequest,
-                child: const Text('Make POST Request'),
+                child: const Text('Log In'),
               ),
               const SizedBox(height: 20),
+              ap.user != null ? Text(ap.user!.email!) : SizedBox.shrink(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

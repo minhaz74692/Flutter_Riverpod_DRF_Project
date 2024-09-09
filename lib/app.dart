@@ -1,4 +1,4 @@
-import 'package:drf_flutter_app/screens/home.dart';
+import 'package:drf_flutter_app/screens/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return const ProviderScope(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: SplashScreen(),
       ),
     );
   }

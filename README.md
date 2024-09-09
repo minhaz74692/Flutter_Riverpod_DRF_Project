@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Riverpod State Management',
-      home: HomeScreen(),
+      home: WelcomeScreen(),
     );
   }
 }
@@ -119,7 +119,7 @@ final userProvider = Provider.family<String, int>((ref, userId) {
 // 8. AutoDispose
 final autoDisposeProvider = StateProvider.autoDispose<int>((ref) => 0);
 
-class HomeScreen extends ConsumerWidget {
+class WelcomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final greeting = ref.watch(greetingProvider);

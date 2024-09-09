@@ -4,6 +4,7 @@ import 'package:drf_flutter_app/constants.dart';
 import 'package:drf_flutter_app/repository/dio/dio_client.dart';
 import 'package:drf_flutter_app/repository/dio/logging_interceptor.dart';
 import 'package:drf_flutter_app/repository/repos/auth_repo.dart';
+import 'package:drf_flutter_app/services/sp_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,13 +14,19 @@ Future<void> init() async {
   // Core
 
   sl.registerLazySingleton(
-      () => DioClient(AppConstant.baseUrl, sl(), loggingInterceptor: sl()));
+    () => DioClient(
+      AppConstant.baseUrl,
+      sl(),
+      loggingInterceptor: sl(),
+      sp: sl(),
+    ),
+  );
 
   // Repository
-  sl.registerLazySingleton(() => AuthRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => AuthRepo(dioClient: sl(), sp: sl()));
 
   // Provider
-  sl.registerFactory(() => AuthBloc(authRepo: sl()));
+  sl.registerFactory(() => AuthBloc(authRepo: sl(), sp: sl()));
 
   // External
   final sharedPreferences = await SharedPreferences.getInstance();
