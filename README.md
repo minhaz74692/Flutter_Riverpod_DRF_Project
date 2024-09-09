@@ -9,9 +9,10 @@ This repository demonstrates various ways to manage state in a Flutter applicati
 ### 1. Provider
 A `Provider` is used for providing read-only values or objects.
 
-```dart
 final stringProvider = Provider<String>((ref) => 'Hello');
 
+##2. StateProvider
+#A StateProvider is used for managing simple mutable states.
 final counterProvider = StateProvider<int>((ref) => 0);
 
 final futureProvider = FutureProvider<int>((ref) async {
