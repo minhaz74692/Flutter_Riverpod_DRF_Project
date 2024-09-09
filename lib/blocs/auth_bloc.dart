@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'di_container.dart' as di;
 
-final authPod = ChangeNotifierProvider<AuthBloc>((ref) {
-  return di.sl<AuthBloc>();
-});
+final authPod = ChangeNotifierProvider<AuthBloc>(
+  (ref) {
+    return di.sl<AuthBloc>();
+  },
+);
 
 class AuthBloc extends ChangeNotifier {
   final AuthRepo authRepo;

@@ -1,6 +1,11 @@
 import 'package:drf_flutter_app/blocs/auth_bloc.dart';
+import 'package:drf_flutter_app/screens/new_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Counter provider
+final counterProvider = StateProvider<int>((ref) => 4);
+final nameProvider = StateProvider<String>((ref) => "");
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -55,6 +60,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     child: const Icon(Icons.add),
                   ),
                 ],
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return TestScreen();
+                      },
+                    ),
+                  );
+                },
+                child: const Icon(Icons.arrow_right),
               ),
             ],
           ),
