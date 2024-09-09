@@ -4,7 +4,7 @@
 
 This repository demonstrates various ways to manage state in a Flutter application using **Riverpod**.
 
-## State Management Techniques
+## State Management Techniques with RiverPod
 
 ```dart
 // 1. Provider
