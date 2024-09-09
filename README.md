@@ -1,4 +1,4 @@
-# Flutter, RiverPod state management, Django Resr Framework Project.
+# Flutter, RiverPod state management, Django Rest Framework Project.
 
 # Flutter Riverpod State Management Examples
 
