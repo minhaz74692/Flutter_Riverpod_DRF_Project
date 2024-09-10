@@ -1,11 +1,9 @@
 import 'package:drf_flutter_app/models/user_model.dart';
 import 'package:drf_flutter_app/repository/repos/auth_repo.dart';
 import 'package:drf_flutter_app/repository/response/api_response.dart';
-import 'package:drf_flutter_app/services/sp_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'di_container.dart' as di;
 
 final authPod = ChangeNotifierProvider<AuthBloc>(
@@ -29,7 +27,7 @@ class AuthBloc extends ChangeNotifier {
       _user = UserModel.fromJson(responseData["user_data"]);
 
       notifyListeners();
-      await sp.setString(SpServices.userToken, user!.token ?? '');
+      authRepo.saveUserToken(user!.token ?? '');
       return true;
     } else {
       _user = null;

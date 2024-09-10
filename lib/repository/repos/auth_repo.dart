@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:drf_flutter_app/repository/dio/dio_client.dart';
 import 'package:drf_flutter_app/repository/exception/api_error_handler.dart';
 import 'package:drf_flutter_app/repository/response/api_response.dart';
+import 'package:drf_flutter_app/services/sp_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -68,6 +69,21 @@ class AuthRepo {
       }
 
       return ApiResponse.withError(ApiErrorHandler.getMessage(error), response);
+    }
+  }
+  
+  // for  user token
+  Future<void> saveUserToken(String token) async {
+    dioClient.token = token;
+    dioClient.dio!.options.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    try {
+      await sp.setString(SpServices.userToken, token);
+    } catch (e) {
+      rethrow;
     }
   }
 }
